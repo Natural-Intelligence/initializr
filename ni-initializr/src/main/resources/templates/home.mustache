@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{#linkTo}}/css/bootstrap.min.css{{/linkTo}}"/>
     <link rel="stylesheet" href="{{#linkTo}}/css/bootstrap-theme.min.css{{/linkTo}}"/>
     <link rel="stylesheet" href="{{#linkTo}}/css/spring.css{{/linkTo}}"/>
+    <link rel="stylesheet" href="{{#linkTo}}/css/ni-spring.css{{/linkTo}}"/>
     <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{#trackingCode}}
@@ -17,11 +18,15 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     {{/trackingCode}}
 </head>
 <body>
-<form id="form" action="/starter.zip" method="get" role="form">
+<form id="form" action="/starter_1.zip" method="get" role="form">
     <div class="container-fluid">
         <div class="row start-header">
             <div class="container">
-                <h1>Natural Int. Spring Initializr <small>bootstrap your application now</small></h1>
+                <h1>
+                    <strong class="logo"><a href="/">Natural Intelligence</a></strong>
+                    Spring Initializr
+                    <small>bootstrap your application now</small>
+                </h1>
             </div>
         </div>
         <div class="container start-main">
@@ -36,6 +41,8 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                                     selected{{/default}}>{{name}}</option>
                             {{/types.content}}
                         </select>
+
+
                         <label for="language">with</label>
                         <select tabindex="2" class="form-control" name="language" id="language">
                             {{#languages.content}}
@@ -160,6 +167,11 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                 </div>
             </div>
             <div class="row full hidden">
+                <div class="checkbox" >
+                    <label>
+                        <input tabindex="15" type="checkbox" name="docker" >Docker
+                    </label>
+                </div>
                 <p class="text-center">
                     <button tabindex="14" name="generate-project" type="submit" class="btn btn-lg btn-primary"
                             role="button">

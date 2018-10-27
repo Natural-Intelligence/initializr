@@ -1,0 +1,317 @@
+initializr:
+  env:
+    boms:
+      codecentric-spring-boot-admin:
+        groupId: de.codecentric
+        artifactId: spring-boot-admin-dependencies
+        versionProperty: spring-boot-admin.version
+        mappings:
+        - versionRange: "[1.5.9.RELEASE,2.0.0.M1)"
+          version: 1.5.7
+        - versionRange: "[2.0.0.M1,2.1.0.M1)"
+          version: 2.0.4
+        - versionRange: "2.1.0.M1"
+          version: 2.1.0-SNAPSHOT
+          repositories: sonatype-snapshots
+    repositories:
+      sonatype-snapshots:
+        name: Sonatype Snapshots
+        url: https://oss.sonatype.org/content/repositories/snapshots/
+        snapshotsEnabled: true
+      ni-nexus:
+        name: Natural Intelligence Private Repo
+        url: http://nexus3.va.naturalint.com/repository/NI-MVN/
+  javaVersions:
+  - id: 9
+    default: false
+  - id: 1.8
+    default: true
+  languages:
+  - name: Java
+    id: java
+    default: true
+  packagings:
+  - name: Jar
+    id: jar
+    default: true
+  - name: War
+    id: war
+    default: false
+  types:
+    - name: Maven Project
+      id: maven-project
+      description: Generate a Maven based project archive
+      tags:
+        build: maven
+        format: project
+      default: true
+      action: /starter.zip
+    - name: Gradle Project
+      id: gradle-project
+      description: Generate a Gradle based project archive
+      tags:
+        build: gradle
+        format: project
+      default: false
+      action: /starter.zip
+  dependencies:
+  - name: Core
+    content:
+    - name: DevTools
+      id: devtools
+      groupId: org.springframework.boot
+      artifactId: spring-boot-devtools
+      scope: runtime
+      description: Spring Boot Development Tools
+      versionRange: 1.3.0.RELEASE
+      starter: false
+      links:
+      - rel: reference
+        href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#using-boot-devtools
+    - name: Security
+      id: security
+      description: Secure your application via spring-security
+      weight: 100
+      links:
+      - rel: guide
+        href: https://spring.io/guides/gs/securing-web/
+        description: Securing a Web Application
+      - rel: guide
+        href: https://spring.io/guides/tutorials/spring-boot-oauth2/
+        description: Spring Boot and OAuth2
+      - rel: guide
+        href: https://spring.io/guides/gs/authenticating-ldap/
+        description: Authenticating a User with LDAP
+      - rel: reference
+        href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-security
+    - name: NI Secrets
+      id: ni-secrets
+      description: SSM provider for natural accounts
+      groupId: com.naturalint
+      artifactId: ni-secrets
+      repository: ni-nexus
+      version: 1.0.4
+    - name: Lombok
+      id: lombok
+      groupId: org.projectlombok
+      artifactId: lombok
+      scope: compileOnly
+      description: Java annotation library which helps to reduce boilerplate code and code faster
+      mappings:
+      - versionRange: "[1.2.0.RELEASE,1.4.0.M1)"
+        version: 1.16.6
+      starter: false
+    - name: Configuration Processor
+      id: configuration-processor
+      groupId: org.springframework.boot
+      artifactId: spring-boot-configuration-processor
+      scope: compileOnly
+      description: Generate metadata for your custom configuration keys
+      versionRange: 1.2.0.RELEASE
+      starter: false
+      links:
+      - rel: reference
+        href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#configuration-metadata-annotation-processor
+    - name: Session
+      id: session
+      groupId: org.springframework.session
+      artifactId: spring-session-core
+      description: API and implementations for managing a user’s session information
+      versionRange: "1.3.0.RELEASE"
+      starter: false
+      mappings:
+      - versionRange: "[1.3.0.RELEASE,2.0.0.M2]"
+        artifactId: spring-session
+    - name: Cache
+      id: cache
+      description: Spring's Cache abstraction
+      versionRange: 1.3.0.RELEASE
+      links:
+      - rel: guide
+        href: https://spring.io/guides/gs/caching/
+        description: Caching Data with Spring
+      - rel: reference
+        href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-caching
+    - name: Validation
+      id: validation
+      description: JSR-303 validation infrastructure (already included with web)
+      versionRange: 1.3.0.RELEASE
+      links:
+      - rel: guide
+        href: https://spring.io/guides/gs/validating-form-input/
+        title: Validating Form Input
+    - name: Retry
+      id: retry
+      groupId: org.springframework.retry
+      artifactId: spring-retry
+      description: Provide declarative retry support via spring-retry
+      versionRange: 1.3.0.RELEASE
+      starter: false
+    - name: Json
+      id: gson
+      description: Google library Java Objects into JSON and back
+      groupId: com.google.code.gson
+      artifactId: gson
+      version: 2.8.5
+      links:
+      - rel: guide
+        href: https://github.com/google/gson
+        description: A Java serialization/deserialization library to convert Java Objects into JSON and back
+      - rel: reference
+        href: https://github.com/google/gson/blob/master/UserGuide.md
+    - name: Aspects
+      id: aop
+      description: Create your own Aspects using Spring AOP and AspectJ
+  - name: Web
+    content:
+    - name: Web
+      id: web
+      description: Full-stack web development with Tomcat and Spring MVC
+      weight: 100
+      facets:
+      - web
+      - json
+      links:
+      - rel: guide
+        href: https://spring.io/guides/gs/rest-service/
+        description: Building a RESTful Web Service
+      - rel: reference
+        href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-developing-web-applications
+      - rel: guide
+        href: https://spring.io/guides/gs/serving-web-content/
+        description: Serving Web Content with Spring MVC
+      - rel: guide
+        href: https://spring.io/guides/tutorials/bookmarks/
+        description: Building REST services with Spring
+    - name: Reactive Web
+      id: webflux
+      versionRange: 2.0.0.M1
+      description: Reactive web development with Netty and Spring WebFlux
+      weight: 90
+      facets:
+      - json
+    - name: Rest Repositories
+      id: data-rest
+      weight: 10
+      facets:
+      - json
+      description: Exposing Spring Data repositories over REST via spring-data-rest-webmvc
+      links:
+      - rel: guide
+        href: https://spring.io/guides/gs/accessing-data-rest/
+        description: Accessing JPA Data with REST
+      - rel: guide
+        href: https://spring.io/guides/gs/accessing-neo4j-data-rest/
+        description: Accessing Neo4j Data with REST
+      - rel: guide
+        href: https://spring.io/guides/gs/accessing-mongodb-data-rest/
+        description: Accessing MongoDB Data with REST
+      - rel: reference
+        href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#howto-use-exposing-spring-data-repositories-rest-endpoint
+    - name: Rest Repositories HAL Browser
+      id: data-rest-hal
+      description: Browsing Spring Data REST repositories in your browser
+      groupId: org.springframework.data
+      artifactId: spring-data-rest-hal-browser
+      versionRange: 1.3.0.RELEASE
+    - name: HATEOAS
+      id: hateoas
+      description: HATEOAS-based RESTful services
+      versionRange: 1.2.2.RELEASE
+      links:
+      - rel: guide
+        href: https://spring.io/guides/gs/rest-hateoas/
+        description: Building a Hypermedia-Driven RESTful Web Service
+      - rel: reference
+        href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-spring-hateoas
+      starter: false
+    - name: Web Services
+      id: web-services
+      description: Contract-first SOAP service development with Spring Web Services
+      aliases:
+      - ws
+      mappings:
+      - versionRange: 1.4.0.M3
+        artifactId: spring-boot-starter-web-services
+      - versionRange: "[1.1.0.RELEASE,1.4.0.M3)"
+        artifactId: spring-boot-starter-ws
+      links:
+      - rel: guide
+        href: https://spring.io/guides/gs/producing-web-service/
+        description: Producing a SOAP web service
+      - rel: reference
+        href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-webservices
+    - name: Jersey (JAX-RS)
+      id: jersey
+      description: RESTful Web Services framework with support of JAX-RS
+      facets:
+      - json
+      versionRange: 1.2.0.RELEASE
+      links:
+      - rel: reference
+        href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jersey
+    - name: Websocket
+      id: websocket
+      description: Websocket development with SockJS and STOMP
+      links:
+      - rel: guide
+        href: https://spring.io/guides/gs/messaging-stomp-websocket/
+        description: Using WebSocket to build an interactive web application
+      - rel: reference
+        href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-websockets
+    - name: REST Docs
+      id: restdocs
+      description: Document RESTful services by combining hand-written and auto-generated documentation
+      groupId: org.springframework.restdocs
+      artifactId: spring-restdocs-mockmvc
+      mappings:
+      - versionRange: "[1.2.0.RELEASE,1.3.0.RC1)"
+        version: 1.0.1.RELEASE
+      scope: test
+    - name: Apache CXF (JAX-RS)
+      id: cxf-jaxrs
+      groupId: org.apache.cxf
+      artifactId: cxf-spring-boot-starter-jaxrs
+      version: 3.2.5
+      description: RESTful Web Services framework with support of JAX-RS
+      versionRange: 1.4.0.RELEASE
+      links:
+      - rel: reference
+        href: https://cxf.apache.org/docs/springboot.html#SpringBoot-SpringBootCXFJAX-RSStarter
+  - name: Ops
+    content:
+      - name: Actuator
+        id: actuator
+        description: Production ready features to help you monitor and manage your application
+        links:
+        - rel: guide
+          href: https://spring.io/guides/gs/actuator-service/
+          description: Building a RESTful Web Service with Spring Boot Actuator
+        - rel: reference
+          href: http://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#production-ready
+      - name: Spring Boot Admin (Server)
+        id: codecentric-spring-boot-admin-server
+        groupId: de.codecentric
+        artifactId: spring-boot-admin-starter-server
+        description: An admin interface for Spring Boot applications
+        versionRange: "1.5.9.RELEASE"
+        bom: codecentric-spring-boot-admin
+        links:
+        - rel: reference
+          href: http://codecentric.github.io/spring-boot-admin/current/#getting-started
+      - name: Spring Boot Admin (Client)
+        id: codecentric-spring-boot-admin-client
+        groupId: de.codecentric
+        artifactId: spring-boot-admin-starter-client
+        description: Register your application with a Spring Boot Admin instance
+        versionRange: "1.5.9.RELEASE"
+        bom: codecentric-spring-boot-admin
+        links:
+        - rel: reference
+          href: http://codecentric.github.io/spring-boot-admin/current/#getting-started
+      - name: Actuator Docs
+        id: actuator-docs
+        description: API documentation for the Actuator endpoints
+        versionRange: "[1.3.0.RELEASE,2.0.0.M1)"
+        groupId: org.springframework.boot
+        artifactId: spring-boot-actuator-docs
