@@ -26,15 +26,19 @@ public class CustomMainController extends MainController {
         super(metadataProvider, templateRenderer, resourceUrlProvider, projectGenerator, dependencyMetadataProvider);
     }
 
+
+    @Override
+    protected void renderHome(Map<String, Object> model) {
+        super.renderHome(model);
+//        model.put("")
+    }
+
     @RequestMapping("/starter_1.zip")
     @ResponseBody
     public ResponseEntity<byte[]> springZip(CustomProjectRequest basicRequest)
             throws IOException {
         ResponseEntity<byte[]> responseEntity = super.springZip(basicRequest);
-        log.info("got here");
-
         return responseEntity;
-
     }
 
 
